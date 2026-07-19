@@ -1,0 +1,186 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../lib/site-config';
+---
+
+<BaseLayout
+  title={`Kontakt | ${siteConfig.businessName}`}
+  description={`Kontaktujte ${siteConfig.ownerName} – revize elektroinstalace a hromosvodů v oblasti ${siteConfig.serviceArea}.`}
+>
+  <section class="mx-auto max-w-5xl px-4 py-16 sm:px-6">
+    <h1 class="font-heading text-3xl font-bold text-brand-dark sm:text-4xl">Kontakt</h1>
+
+    <div class="mt-10 grid gap-12 md:grid-cols-2">
+      <div>
+        <h2 class="font-heading text-lg font-semibold text-brand-dark">Kontaktní údaje</h2>
+
+        <div class="mt-4 space-y-4">
+          <div class="rounded-lg border border-slate-200 p-6">
+            <p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">E-mail</p>
+            <p class="mt-1 text-sm text-brand-secondary">Odešlete zprávu</p>
+            <a
+              href={siteConfig.emailHref}
+              class="mt-2 block font-heading text-lg font-semibold text-brand-dark hover:text-brand-primary-dark"
+            >
+              {siteConfig.email}
+            </a>
+          </div>
+
+          <div class="rounded-lg border border-slate-200 p-6">
+            <p class="text-sm font-semibold uppercase tracking-wide text-brand-secondary">
+              Telefon
+            </p>
+            <p class="mt-1 text-sm text-brand-secondary">Zavolejte nám</p>
+            <a
+              href={siteConfig.phoneHref}
+              class="mt-2 block font-heading text-lg font-semibold text-brand-dark hover:text-brand-primary-dark"
+            >
+              {siteConfig.phone}
+            </a>
+          </div>
+        </div>
+
+        <ul class="mt-4 space-y-2 text-sm text-brand-secondary">
+          <li>{siteConfig.serviceArea}</li>
+          <li>{siteConfig.openingHours.weekdays}</li>
+          <li>{siteConfig.openingHours.saturday}</li>
+        </ul>
+      </div>
+
+      <form
+        name="contact"
+        method="POST"
+        data-netlify="true"
+        data-netlify-recaptcha="true"
+        netlify-honeypot="bot-field"
+        id="contact-form"
+        class="space-y-5"
+        novalidate
+      >
+        <input type="hidden" name="form-name" value="contact" />
+
+        <p class="hidden">
+          <label>
+            Nevyplňuj toto pole: <input name="bot-field" />
+          </label>
+        </p>
+
+        <div
+          id="form-errors"
+          role="alert"
+          aria-live="polite"
+          class="hidden rounded-md bg-red-50 p-4 text-sm text-red-700"
+        >
+        </div>
+
+        <div>
+          <label for="name" class="block text-sm font-medium text-brand-dark">Jméno *</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            required
+            class="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-brand-dark"
+            aria-describedby="name-error"
+          />
+          <p id="name-error" class="mt-1 hidden text-sm text-red-600"></p>
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium text-brand-dark">Email *</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-brand-dark"
+            aria-describedby="email-error"
+          />
+          <p id="email-error" class="mt-1 hidden text-sm text-red-600"></p>
+        </div>
+
+        <div>
+          <label for="phone" class="block text-sm font-medium text-brand-dark">Telefon *</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            required
+            class="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-brand-dark"
+            aria-describedby="phone-error"
+          />
+          <p id="phone-error" class="mt-1 hidden text-sm text-red-600"></p>
+        </div>
+
+        <div>
+          <label for="message" class="block text-sm font-medium text-brand-dark">Zpráva *</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
+            required
+            class="mt-1 block w-full rounded-md border border-slate-300 px-3 py-2 text-brand-dark"
+            aria-describedby="message-error"></textarea>
+          <p id="message-error" class="mt-1 hidden text-sm text-red-600"></p>
+        </div>
+
+        <div data-netlify-recaptcha="true"></div>
+
+        <button
+          type="submit"
+          class="min-h-11 rounded-md bg-brand-primary px-6 py-3 text-base font-semibold text-brand-dark hover:bg-brand-primary-dark"
+        >
+          Odeslat poptávku
+        </button>
+      </form>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { validateContactForm } from '../lib/validation';
+  import type { ContactFormData } from '../types/contact-form';
+
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const errorsBox = document.getElementById('form-errors');
+
+  if (form && errorsBox) {
+    form.addEventListener('submit', (event) => {
+      const formData = new FormData(form);
+      const data: ContactFormData = {
+        name: String(formData.get('name') ?? ''),
+        email: String(formData.get('email') ?? ''),
+        phone: String(formData.get('phone') ?? ''),
+        message: String(formData.get('message') ?? ''),
+        honeypot: String(formData.get('bot-field') ?? ''),
+      };
+
+      const fields = Object.keys(data) as (keyof ContactFormData)[];
+      for (const field of fields) {
+        const errorEl = document.getElementById(`${field}-error`);
+        const inputEl = document.getElementById(field);
+        errorEl?.classList.add('hidden');
+        inputEl?.removeAttribute('aria-invalid');
+      }
+      errorsBox.classList.add('hidden');
+
+      const result = validateContactForm(data);
+
+      if (!result.valid) {
+        event.preventDefault();
+        errorsBox.textContent = 'Zkontrolujte prosím vyznačená pole ve formuláři.';
+        errorsBox.classList.remove('hidden');
+
+        for (const [field, message] of Object.entries(result.errors ?? {})) {
+          const errorEl = document.getElementById(`${field}-error`);
+          const inputEl = document.getElementById(field);
+          if (errorEl) {
+            errorEl.textContent = message ?? '';
+            errorEl.classList.remove('hidden');
+          }
+          inputEl?.setAttribute('aria-invalid', 'true');
+        }
+      }
+    });
+  }
+</script>

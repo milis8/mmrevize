@@ -1,0 +1,59 @@
+---
+import { Image } from 'astro:assets';
+import milanPhoto from '../../assets/milan-photo.png';
+import { siteConfig } from '../../lib/site-config';
+---
+
+<section class="relative isolate h-[clamp(420px,56.25vw,1100px)] overflow-hidden bg-white">
+  {/* Fotka + tmavý gradient – ořezané diagonálně, aby dole prosvítala bílá barva stránky */}
+  <div class="absolute inset-0 -z-10 [clip-path:polygon(0%_0%,100%_0%,100%_92%,0%_100%)]">
+    <Image
+      src={milanPhoto}
+      alt={`${siteConfig.ownerName} – revizní technik`}
+      class="h-full w-full object-cover object-[65%_12%]"
+      widths={[640, 1024, 1600, 1920]}
+      sizes="100vw"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/70 to-transparent"
+      aria-hidden="true"
+    >
+    </div>
+  </div>
+
+  {/* Diagonální akcentová linka přesně na hraně ořezu fotky */}
+  <div
+    class="absolute inset-0 -z-10 bg-gradient-to-r from-brand-primary via-brand-primary/60 to-transparent [clip-path:polygon(0%_97%,100%_89%,100%_92%,0%_100%)]"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="relative mx-auto flex h-full max-w-6xl items-center px-4 py-16 sm:px-6 sm:py-24">
+    <div class="min-w-0 max-w-xl">
+      <p class="font-heading text-sm font-semibold uppercase tracking-wide text-brand-primary">
+        {siteConfig.serviceArea}
+      </p>
+      <h1 class="mt-3 font-heading text-3xl font-bold text-white sm:text-5xl">
+        {siteConfig.tagline}
+      </h1>
+      <p class="mt-4 text-base text-slate-200 sm:text-lg">
+        Revizní zprávy podle platných norem pro byty, rodinné domy, provozovny i SVJ. Rychlé
+        jednání, spolehlivé termíny.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-4">
+        <a
+          href={siteConfig.phoneHref}
+          class="inline-flex min-h-11 items-center rounded-md bg-brand-primary px-6 py-3 text-base font-semibold text-brand-dark hover:bg-brand-primary-dark"
+        >
+          Zavolat {siteConfig.phone}
+        </a>
+        <a
+          href="/kontakt/"
+          class="inline-flex min-h-11 items-center rounded-md border border-slate-300 px-6 py-3 text-base font-semibold text-white hover:border-brand-primary"
+        >
+          Nezávazná poptávka
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

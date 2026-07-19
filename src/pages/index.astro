@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Services from '../components/sections/Services.astro';
+import Testimonials from '../components/sections/Testimonials.astro';
+import ContactCta from '../components/sections/ContactCta.astro';
+import { siteConfig } from '../lib/site-config';
+---
+
+<BaseLayout
+  title={`${siteConfig.businessName} | Revize elektro Česká Lípa`}
+  description={`${siteConfig.tagline} v oblasti ${siteConfig.serviceArea}. Revize elektroinstalace, hromosvodů, spotřebičů a nářadí.`}
+>
+  <Hero />
+  <Services />
+  <Testimonials />
+  <ContactCta />
+</BaseLayout>

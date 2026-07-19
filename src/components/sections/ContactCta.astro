@@ -1,0 +1,26 @@
+---
+import { siteConfig } from '../../lib/site-config';
+---
+
+<section class="bg-brand-secondary">
+  <div class="mx-auto max-w-6xl px-4 py-16 text-center sm:px-6">
+    <h2 class="font-heading text-2xl font-bold text-white sm:text-3xl">Potřebujete revizi?</h2>
+    <p class="mx-auto mt-2 max-w-xl text-slate-300">
+      Ozvěte se telefonicky nebo přes kontaktní formulář, ozvu se zpět s termínem.
+    </p>
+    <div class="mt-8 flex flex-wrap justify-center gap-4">
+      <a
+        href={siteConfig.phoneHref}
+        class="inline-flex min-h-11 items-center rounded-md bg-brand-primary px-6 py-3 text-base font-semibold text-brand-dark hover:bg-brand-primary-dark"
+      >
+        Zavolat {siteConfig.phone}
+      </a>
+      <a
+        href="/kontakt/"
+        class="inline-flex min-h-11 items-center rounded-md border border-slate-500 px-6 py-3 text-base font-semibold text-white hover:border-brand-primary"
+      >
+        Přejít na kontaktní formulář
+      </a>
+    </div>
+  </div>
+</section>

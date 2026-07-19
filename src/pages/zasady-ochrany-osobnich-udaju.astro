@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../lib/site-config';
+---
+
+<BaseLayout
+  title={`Zásady ochrany osobních údajů | ${siteConfig.businessName}`}
+  description="Informace o zpracování osobních údajů v souvislosti s tímto webem."
+>
+  <section class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <h1 class="font-heading text-3xl font-bold text-brand-dark sm:text-4xl">
+      Zásady ochrany osobních údajů
+    </h1>
+
+    <div class="prose mt-8 max-w-none space-y-8 text-brand-secondary">
+      <div>
+        <h2 class="font-heading text-xl font-semibold text-brand-dark">Správce údajů</h2>
+        <p class="mt-2">
+          Správcem osobních údajů je {siteConfig.ownerName}, {siteConfig.serviceArea}.
+          {/* TODO: doplnit IČO a přesnou adresu sídla */}
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-heading text-xl font-semibold text-brand-dark">Jaké údaje zpracováváme</h2>
+        <p class="mt-2">
+          Prostřednictvím kontaktního formuláře zpracováváme jméno, email a telefonní číslo, které
+          nám sami poskytnete, a obsah vaší zprávy. Automaticky se zpracovává IP adresa a soubory
+          cookies uvedené v cookie liště.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-heading text-xl font-semibold text-brand-dark">Účel a doba zpracování</h2>
+        <p class="mt-2">
+          Údaje z formuláře zpracováváme za účelem vyřízení vaší poptávky a případné následné
+          komunikace. Uchováváme je po dobu nezbytnou k vyřízení poptávky, nejdéle však 24 měsíců.
+        </p>
+      </div>
+
+      <div>
+        <h2 class="font-heading text-xl font-semibold text-brand-dark">
+          Zpracovatelé třetích stran
+        </h2>
+        <ul class="mt-2 list-disc space-y-1 pl-5">
+          <li>Netlify – ukládá data odeslaná kontaktním formulářem a hostuje tento web.</li>
+          <li>Google reCAPTCHA – ochrana formuláře proti spamu.</li>
+          <li>Google Fonts (self-hosted přes Astro Fonts API) – načtení písma bez trackování.</li>
+        </ul>
+      </div>
+
+      <div>
+        <h2 class="font-heading text-xl font-semibold text-brand-dark">Vaše práva</h2>
+        <p class="mt-2">
+          Máte právo na přístup ke svým osobním údajům, jejich opravu, výmaz a omezení zpracování
+          podle čl. 15–17 GDPR. Pro uplatnění svých práv nás kontaktujte na e-mailu
+          <a href={siteConfig.emailHref} class="underline">{siteConfig.email}</a> nebo na telefonu
+          <a href={siteConfig.phoneHref} class="underline">{siteConfig.phone}</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

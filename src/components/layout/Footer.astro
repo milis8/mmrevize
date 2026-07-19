@@ -1,0 +1,46 @@
+---
+import { siteConfig } from '../../lib/site-config';
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="border-t border-slate-200 bg-brand-secondary text-slate-200">
+  <div class="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:px-6 md:grid-cols-3">
+    <div>
+      <p class="font-heading text-lg font-semibold text-white">{siteConfig.businessName}</p>
+      <p class="mt-2 text-sm">{siteConfig.tagline}</p>
+    </div>
+
+    <div>
+      <h2 class="font-heading text-sm font-semibold uppercase tracking-wide text-white">Kontakt</h2>
+      <ul class="mt-3 space-y-2 text-sm">
+        <li>
+          <a href={siteConfig.phoneHref} class="hover:text-brand-primary">{siteConfig.phone}</a>
+        </li>
+        <li>
+          <a href={siteConfig.emailHref} class="hover:text-brand-primary">{siteConfig.email}</a>
+        </li>
+        <li>{siteConfig.serviceArea}</li>
+        <li>{siteConfig.openingHours.weekdays}</li>
+        <li>{siteConfig.openingHours.saturday}</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2 class="font-heading text-sm font-semibold uppercase tracking-wide text-white">Odkazy</h2>
+      <ul class="mt-3 space-y-2 text-sm">
+        <li><a href="/cenik/" class="hover:text-brand-primary">Ceník</a></li>
+        <li><a href="/kontakt/" class="hover:text-brand-primary">Kontakt</a></li>
+        <li>
+          <a href="/zasady-ochrany-osobnich-udaju/" class="hover:text-brand-primary">
+            Zásady ochrany osobních údajů
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="border-t border-slate-700 px-4 py-4 text-center text-xs text-slate-400 sm:px-6">
+    {`© ${currentYear} ${siteConfig.businessName}. Všechna práva vyhrazena.`}
+  </div>
+</footer>

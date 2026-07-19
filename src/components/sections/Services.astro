@@ -1,0 +1,29 @@
+---
+import ServiceIcon from '../ui/ServiceIcon.astro';
+import { siteConfig } from '../../lib/site-config';
+---
+
+<section class="mx-auto max-w-6xl px-4 py-16 sm:px-6">
+  <h2 class="font-heading text-2xl font-bold text-brand-dark sm:text-3xl">Nabízené revize</h2>
+  <p class="mt-2 max-w-2xl text-brand-secondary">
+    Kompletní revizní služby pro domácnosti, firmy i bytová družstva.
+  </p>
+
+  {/* TODO: ikony jsou zatím zástupné, nahradit finálními ikonami od klienta */}
+  <ul class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    {
+      siteConfig.services.map((service) => (
+        <li class="group rounded-xl border border-slate-200 bg-white p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-primary hover:shadow-xl hover:shadow-slate-200/60">
+          <div class="flex h-12 w-12 items-center justify-center rounded-full bg-brand-primary/10 text-brand-primary-dark transition-colors duration-300 group-hover:bg-brand-primary group-hover:text-white">
+            <ServiceIcon
+              name={service.icon}
+              class="h-6 w-6 transition-transform duration-300 group-hover:scale-110"
+            />
+          </div>
+          <h3 class="mt-4 font-heading text-lg font-semibold text-brand-dark">{service.title}</h3>
+          <p class="mt-2 text-sm text-brand-secondary">{service.description}</p>
+        </li>
+      ))
+    }
+  </ul>
+</section>

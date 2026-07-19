@@ -1,0 +1,90 @@
+---
+
+---
+
+<div
+  id="cookie-consent"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="cookie-consent-title"
+  class="fixed inset-x-0 bottom-0 z-50 hidden border-t border-slate-200 bg-white p-4 shadow-lg sm:p-6"
+>
+  <div class="mx-auto flex max-w-6xl flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <div>
+      <h2 id="cookie-consent-title" class="font-heading text-sm font-semibold text-brand-dark">
+        Používání cookies
+      </h2>
+      <p class="mt-1 max-w-2xl text-sm text-brand-secondary">
+        Tento web používá nezbytné cookies pro fungování formuláře a volitelně analytické cookies
+        pro měření návštěvnosti. Více v
+        <a href="/zasady-ochrany-osobnich-udaju/" class="underline"
+          >Zásadách ochrany osobních údajů</a
+        >.
+      </p>
+    </div>
+    <div class="flex shrink-0 flex-wrap gap-2">
+      <button
+        type="button"
+        id="cookie-consent-reject"
+        class="min-h-11 rounded-md border border-slate-300 px-4 py-2 text-sm font-semibold text-brand-secondary"
+      >
+        Odmítnout volitelné
+      </button>
+      <button
+        type="button"
+        id="cookie-consent-accept"
+        class="min-h-11 rounded-md bg-brand-primary px-4 py-2 text-sm font-semibold text-brand-dark hover:bg-brand-primary-dark"
+      >
+        Přijmout vše
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const STORAGE_KEY = 'cookie-consent';
+  const banner = document.getElementById('cookie-consent');
+  const acceptButton = document.getElementById('cookie-consent-accept');
+  const rejectButton = document.getElementById('cookie-consent-reject');
+
+  if (banner && acceptButton && rejectButton) {
+    const focusableElements = [rejectButton, acceptButton];
+
+    const hideBanner = () => {
+      banner.classList.add('hidden');
+    };
+
+    const showBanner = () => {
+      banner.classList.remove('hidden');
+      acceptButton.focus();
+    };
+
+    const saveChoice = (analytics: boolean) => {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify({ necessary: true, analytics }));
+      hideBanner();
+    };
+
+    acceptButton.addEventListener('click', () => saveChoice(true));
+    rejectButton.addEventListener('click', () => saveChoice(false));
+
+    banner.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        saveChoice(false);
+        return;
+      }
+
+      if (event.key === 'Tab') {
+        const currentIndex = focusableElements.indexOf(document.activeElement as HTMLElement);
+        const direction = event.shiftKey ? -1 : 1;
+        const nextIndex =
+          (currentIndex + direction + focusableElements.length) % focusableElements.length;
+        focusableElements[nextIndex]?.focus();
+        event.preventDefault();
+      }
+    });
+
+    if (!localStorage.getItem(STORAGE_KEY)) {
+      showBanner();
+    }
+  }
+</script>

@@ -1,0 +1,137 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../../assets/logo.png';
+import { siteConfig } from '../../lib/site-config';
+
+const navItems = [
+  { href: '/', label: 'Domů' },
+  { href: '/o-mne/', label: 'O mně' },
+  { href: '/co-delam/', label: 'Co dělám' },
+  { href: '/cenik/', label: 'Ceník' },
+  { href: '/kontakt/', label: 'Kontakt' },
+];
+---
+
+<header class="sticky top-0 z-40 border-b border-slate-200 bg-white">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
+    <a href="/" class="shrink-0">
+      <Image
+        src={logo}
+        alt={siteConfig.businessName}
+        class="h-10 w-auto sm:h-12"
+        widths={[240, 400]}
+      />
+    </a>
+
+    <nav aria-label="Hlavní navigace" class="hidden md:block">
+      <ul class="flex items-center gap-8">
+        {
+          navItems.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="text-sm font-medium text-brand-secondary hover:text-brand-primary-dark"
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <a
+      href={siteConfig.phoneHref}
+      class="hidden items-center rounded-md bg-brand-primary px-4 py-2 text-sm font-semibold text-brand-dark hover:bg-brand-primary-dark md:inline-flex"
+    >
+      {siteConfig.phone}
+    </a>
+
+    <button
+      id="mobile-menu-button"
+      type="button"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      class="inline-flex min-h-11 min-w-11 items-center justify-center rounded-md border border-slate-200 md:hidden"
+    >
+      <span class="sr-only">Otevřít menu</span>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        class="h-6 w-6"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M3.75 6.75h16.5M3.75 12h16.5M3.75 17.25h16.5"></path>
+      </svg>
+    </button>
+  </div>
+
+  <nav
+    id="mobile-menu"
+    aria-label="Mobilní navigace"
+    class="hidden border-t border-slate-200 md:hidden"
+  >
+    <ul class="flex flex-col gap-1 px-4 py-4">
+      {
+        navItems.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="block min-h-11 py-2 text-base font-medium text-brand-secondary"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+      <li>
+        <a
+          href={siteConfig.phoneHref}
+          class="mt-2 block min-h-11 rounded-md bg-brand-primary px-4 py-2 text-center text-base font-semibold text-brand-dark"
+        >
+          {siteConfig.phone}
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const button = document.getElementById('mobile-menu-button');
+  const menu = document.getElementById('mobile-menu');
+
+  if (button && menu) {
+    const closeMenu = () => {
+      menu.classList.add('hidden');
+      button.setAttribute('aria-expanded', 'false');
+    };
+
+    const openMenu = () => {
+      menu.classList.remove('hidden');
+      button.setAttribute('aria-expanded', 'true');
+      menu.querySelector('a')?.focus();
+    };
+
+    button.addEventListener('click', () => {
+      const isOpen = button.getAttribute('aria-expanded') === 'true';
+      if (isOpen) {
+        closeMenu();
+      } else {
+        openMenu();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && button.getAttribute('aria-expanded') === 'true') {
+        closeMenu();
+        button.focus();
+      }
+    });
+  }
+</script>

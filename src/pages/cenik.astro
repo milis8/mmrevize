@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../lib/site-config';
+---
+
+<BaseLayout
+  title={`Ceník | ${siteConfig.businessName}`}
+  description="Orientační ceník revizí elektroinstalace, hromosvodů, spotřebičů a diagnostiky závad."
+>
+  <section class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
+    <h1 class="font-heading text-3xl font-bold text-brand-dark sm:text-4xl">Ceník</h1>
+
+    <ul class="mt-10 divide-y divide-slate-200 border-t border-b border-slate-200">
+      {
+        siteConfig.pricing.map((item) => (
+          <li class="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 py-4">
+            <div>
+              <p class="font-heading font-semibold text-brand-dark">{item.title}</p>
+              {'note' in item && item.note && (
+                <p class="text-sm text-brand-secondary">{item.note}</p>
+              )}
+            </div>
+            <p class="whitespace-nowrap font-heading text-lg font-semibold text-brand-primary-dark">
+              {item.price}
+            </p>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="mt-8 text-sm text-brand-secondary">
+      Cena se vždy odvíjí od rozsahu práce. Přesnou cenu sdělím předem po domluvě.
+    </p>
+
+    <div class="mt-10">
+      <a
+        href={siteConfig.phoneHref}
+        class="inline-flex min-h-11 items-center rounded-md bg-brand-primary px-6 py-3 text-base font-semibold text-brand-dark hover:bg-brand-primary-dark"
+      >
+        Zavolat {siteConfig.phone}
+      </a>
+    </div>
+  </section>
+</BaseLayout>

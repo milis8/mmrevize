@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../lib/site-config';
+---
+
+<BaseLayout
+  title={`Stránka nenalezena | ${siteConfig.businessName}`}
+  description="Požadovaná stránka nebyla nalezena."
+>
+  <section class="mx-auto flex max-w-2xl flex-col items-center px-4 py-24 text-center sm:px-6">
+    <p class="font-heading text-6xl font-bold text-brand-primary">404</p>
+    <h1 class="mt-4 font-heading text-2xl font-bold text-brand-dark">Stránka nenalezena</h1>
+    <p class="mt-2 text-brand-secondary">
+      Omlouváme se, hledaná stránka neexistuje nebo byla přesunuta.
+    </p>
+    <a
+      href="/"
+      class="mt-8 inline-flex min-h-11 items-center rounded-md bg-brand-primary px-6 py-3 text-base font-semibold text-brand-dark hover:bg-brand-primary-dark"
+    >
+      Zpět na hlavní stránku
+    </a>
+  </section>
+</BaseLayout>
