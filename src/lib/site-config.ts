@@ -14,8 +14,7 @@ export const siteConfig = {
     weekdays: 'Po–Pá 8:00–18:00',
     saturday: 'So 8:00–14:00',
   },
-  // TODO: doplnit až bude k dispozici (IČO nebylo na původním webu uvedené)
-  ico: '',
+  ico: '05847460',
   url: 'https://mmrevize.cz',
   services: [
     {
