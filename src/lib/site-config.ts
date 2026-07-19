@@ -53,34 +53,21 @@ export const siteConfig = {
     {
       title: 'Elektroinstalace – byt',
       note: 'dle rozsahu',
-      price: 'od 1 500 Kč',
+      price: 'od 2 500 Kč',
     },
     {
       title: 'Elektroinstalace – rodinný dům',
       note: 'dle rozsahu',
-      price: 'od 3 500 Kč',
-    },
-    {
-      title: 'Elektroinstalace – např. zásuvkový vývod',
-      note: 'dle rozsahu',
-      price: 'od 500 Kč',
+      price: 'od 4 000 Kč',
     },
     {
       title: 'Hromosvod',
-      price: 'od 2 000 Kč',
+      price: '1 000 Kč/svod',
     },
     {
       title: 'Revize elektrických spotřebičů',
       note: 'větší množství dohodou, např. paušální cenou',
-      price: '70 Kč/ks',
-    },
-    {
-      title: 'Diagnostika závady – výjezd a zjištění',
-      price: '800 Kč',
-    },
-    {
-      title: 'Diagnostika závady – oprava drobné závady',
-      price: '1 000 Kč',
+      price: '80 Kč/ks',
     },
     {
       title: 'Revize odběrného místa (ČEZ)',
