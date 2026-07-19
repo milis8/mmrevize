@@ -16,6 +16,7 @@ export const siteConfig = {
   },
   ico: '05847460',
   url: 'https://mmrevize.cz',
+  googleReviewUrl: 'https://share.google/hRXnWIpOloBpfVR7q',
   services: [
     {
       title: 'Revize elektroinstalace',
@@ -80,24 +81,34 @@ export const siteConfig = {
   ],
   testimonials: [
     {
-      name: 'Jan Marek',
+      name: 'Jakub Majtner',
       rating: 5,
-      text: 'Můžu jedině doporučit Revizního technika! Rychlé a spolehlivé řešení problémů s elektrickými zařízeními v našem domě. Skvělá komunikace a profesionální přístup.',
+      text: 'Zavolal jsem, popsal jsem pánovi můj problém, řekl mi že je do půl hodiny u mě a pomůže mi. Výsledek: Do 30 min byl na místě a s úsměvem problém vyřešil. Za mě maximální spokojenost!',
     },
     {
-      name: 'Petr Svoboda',
+      name: 'Lukáš Básner',
       rating: 5,
-      text: 'Jsem velmi spokojený s prací Revizního technika, který mi pomohl s revizí hromosvodu. Vše proběhlo hladce a včas, navíc za velmi příjemnou cenu. Děkuji!',
+      text: 'Super komunikace, ochota, poradenství, co bylo potřeba vše vyřízeno, vřele doporučuji. Když bude potřeba, určitě znovu využiji služby.',
     },
     {
-      name: 'Lucie Sladěná',
+      name: 'Filip Veselý',
       rating: 5,
-      text: 'Výborný servis a kvalitní práce. Revizní technik mi pomohl s revizí spotřebičů v našem obchodě a musím říct, že jsem nadmíru spokojen. Vřele doporučuji!',
+      text: 'Profesionální revizní technik, férové jednání a rychlý termín. Doporučuji!',
     },
     {
-      name: 'Jaroslav Dvořák',
+      name: 'Kristyna Gabrielova',
       rating: 5,
-      text: 'Potřebovali jsme urgentní revizi elektrického zařízení ve firmě a Revizní technik nám vyšel vstříc a dokázal to vše vyřešit v krátkém čase. Rychlost, spolehlivost a příjemný přístup – to je to, co oceňuji nejvíce. Díky!',
+      text: 'S panem revizákem byla skvělá domluva od samého začátku. Dorazil přesně na čas, což se dneska jen tak nevidí. Celou revizi elektroinstalace provedl velmi pečlivě, profesionálně a zbytečně neprodlužoval čas. Navíc mi lidsky vysvětlil, na co si dát v budoucnu pozor. Cena odpovídala dohodě, revizní zprávu jsem měla v ruce prakticky okamžitě. Všem vřele doporučuji a příště se stoprocentně ozvu znovu!',
+    },
+    {
+      name: 'Daniel Kovacic',
+      rating: 5,
+      text: 'Se vším sem byl velmi spokojený. S pánem rychlá domluva termínu, vše opraveno a vyřešeno během půl hodiny. Lidský přístup. Doporučuji :).',
+    },
+    {
+      name: 'Daniela Poršová',
+      rating: 5,
+      text: 'Byli jsme maximálně spokojeni. Šikovnost, rychlost, ochota a skvělé rady – všechno, co jsme potřebovali. Oceňujeme také vstřícný a lidský přístup. Vřele doporučujeme!',
     },
   ],
 } as const;
