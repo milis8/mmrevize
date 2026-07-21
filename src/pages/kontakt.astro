@@ -62,7 +62,15 @@ import { siteConfig } from '../lib/site-config';
 
         <p class="hidden">
           <label>
-            Nevyplňuj toto pole: <input name="bot-field" />
+            Nevyplňuj toto pole:
+            <input
+              name="bot-field"
+              autocomplete="off"
+              tabindex="-1"
+              data-1p-ignore
+              data-lpignore="true"
+              data-form-type="other"
+            />
           </label>
         </p>
 
