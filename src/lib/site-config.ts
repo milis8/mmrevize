@@ -1,6 +1,6 @@
 // Centrální zdroj firemních údajů – používá se v Header, Footer, JSON-LD i na stránce Kontakt
 export const siteConfig = {
-  businessName: 'Milan Miklovič – Revizní technik',
+  businessName: 'Milan Miklovič, revizní technik',
   ownerName: 'Milan Miklovič',
   tagline: 'Revize elektroinstalace, hromosvodů a spotřebičů',
   phone: '+420 733 373 933',
@@ -51,12 +51,12 @@ export const siteConfig = {
   ],
   pricing: [
     {
-      title: 'Elektroinstalace – byt',
+      title: 'Elektroinstalace v bytě',
       note: 'dle rozsahu',
       price: 'od 2 500 Kč',
     },
     {
-      title: 'Elektroinstalace – rodinný dům',
+      title: 'Elektroinstalace v rodinném domě',
       note: 'dle rozsahu',
       price: 'od 4 000 Kč',
     },
