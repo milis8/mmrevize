@@ -1,0 +1,35 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { siteConfig } from '../lib/site-config';
+---
+
+<BaseLayout
+  title={`Děkuji za zprávu | ${siteConfig.businessName}`}
+  description="Poptávka byla úspěšně odeslána."
+>
+  <section class="mx-auto flex max-w-2xl flex-col items-center px-4 py-24 text-center sm:px-6">
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="1.5"
+      class="h-16 w-16 text-brand-primary"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="10"></circle>
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8 12.5l2.5 2.5L16 9"></path>
+    </svg>
+    <h1 class="mt-4 font-heading text-2xl font-bold text-brand-dark sm:text-3xl">
+      Děkuji za zprávu
+    </h1>
+    <p class="mt-2 text-brand-secondary">
+      Vaše poptávka byla úspěšně odeslána. Ozvu se vám co nejdříve s termínem.
+    </p>
+    <a
+      href="/"
+      class="mt-8 inline-flex min-h-11 items-center rounded-md bg-brand-primary px-6 py-3 text-base font-semibold text-brand-dark hover:bg-brand-primary-dark"
+    >
+      Zpět na hlavní stránku
+    </a>
+  </section>
+</BaseLayout>
