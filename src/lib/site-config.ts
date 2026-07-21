@@ -16,7 +16,7 @@ export const siteConfig = {
   },
   ico: '05847460',
   url: 'https://mmrevize.cz',
-  googleReviewUrl: 'https://share.google/hRXnWIpOloBpfVR7q',
+  googleReviewUrl: 'https://g.page/r/CSEpAzhzTft1EAE/review',
   services: [
     {
       title: 'Revize elektroinstalace',
