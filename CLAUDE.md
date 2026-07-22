@@ -53,6 +53,43 @@ potřeboval nezávislost, tu není.
 3. Přijmeš svým Netlify účtem — spravuješ deploy/env proměnné/`_headers` v jeho Teamu, jen
    přepínáš mezi "svým" a "jeho" Teamem ve vlastním přihlášení
 
+> ⚠️ **Bezplatný (Starter) Netlify plán členy týmu nepřidá** — "Team settings → Members" u
+> free plánu jen nabídne upgrade na placený plán. Pokud klient nechce platit, tenhle krok
+> udělat nejde a je potřeba rovnou řešit nasazení jinak — viz sekce **Nasazení (CI/CD)** níže.
+
+### Nasazení (CI/CD) — GitHub Actions místo přímé Netlify integrace
+
+Netlify's **bezplatný plán** u **soukromých** repozitářů povoluje automatické buildy jen od
+**jednoho ověřeného přispěvatele Git** (typicky ten GitHub účet, kterým se dělal "Import from
+Git" při zakládání site). Push od kohokoliv jiného (třeba tebe jako vývojáře, když klient
+nemůže na free plánu přidat dalšího Netlify team membera — viz varování výše) build **rovnou
+zablokuje** chybou `unrecognized Git contributor`, ještě než se vůbec pokusí sestavit.
+
+Tohle není bug, je to záměrné omezení bezplatného plánu. Netlify v tom hlášení nabízí dvě
+cesty: zveřejnit repo, nebo upgradovat na Pro. Pro klientské projekty, kde má repo zůstat
+**soukromé** a placení klienta za Pro není žádoucí, je čistší **obejít Netlify's vlastní Git
+integraci úplně** a nahazovat přes GitHub Actions + Netlify CLI — tahle kontrola platí jen
+pro Netlify's vlastní sledování repa, ne pro nasazení přes API/CLI:
+
+1. Klient vygeneruje **Netlify Personal Access Token** (User settings → Applications → New
+   access token)
+2. Token se uloží jako **GitHub Secret** (`NETLIFY_AUTH_TOKEN`) v repu, spolu se **Site ID**
+   webu (`NETLIFY_SITE_ID`, najdeš v Site configuration → General → Project details) —
+   zašifrované, po uložení je nikdo nevidí ani nejde zpětně přečíst
+3. Workflow `.github/workflows/deploy.yml` při každém pushi na `main`: nainstaluje závislosti,
+   spustí `npm run build`, výsledek nahraje přes `netlify deploy --prod --dir=dist`
+4. V Netlify se **vypne vlastní Continuous Deployment** (sledování Git repa v Build & deploy),
+   ať se nepokouší stavět samo souběžně a nenaráží na stejnou chybu
+
+Výhody: repo zůstává privátní, žádné dodatečné náklady (GitHub Actions má u soukromých
+repozitářů 2000 minut/měsíc zdarma, build takhle malého webu trvá řádově desítky sekund), a
+funguje bez ohledu na to, kolik lidí/jaké GitHub účty do repa pushují — ideální i pro projekty
+s citlivějším kódem (backend, API klíče), kde zveřejnění repa není přijatelná varianta.
+
+Nastavit rovnou při zakládání nového klientského projektu, pokud je repo soukromé a klient
+je na bezplatném Netlify plánu — ne až narazíte na `unrecognized Git contributor` uprostřed
+práce.
+
 ### Doména
 
 - Registruje si klient sám (Wedos, Active24, Forpsi apod.), zůstává na jeho jméno/firmu
@@ -68,6 +105,25 @@ potřeboval nezávislost, tu není.
 - Trade-off: pokud klient web někdy převezme úplně, klíč se buď přehodí na jeho vlastní účet,
   nebo se založí nový — jednorázová věc při předání, ne průběžná práce
 
+### Google Search Console
+
+Na rozdíl od reCAPTCHA patří pod **klientův vlastní Google účet** (ideálně stejný, jaký
+používá pro Google Business Profile) — obsahuje dlouhodobě cenná SEO data (indexace, výkon
+ve vyhledávání, klikání), která má klient vlastnit stejně jako doménu nebo GitHub repo.
+
+1. Klient na [search.google.com/search-console](https://search.google.com/search-console)
+   založí **property typu Doména** (ne URL prefix — pokrývá všechny varianty www/non-www/http/https
+   najednou) pro vlastní doménu
+2. Ověření vlastnictví přes **DNS TXT záznam** — Google vygeneruje řetězec, přidá se do DNS
+   správy domény (u tohoto stacku typicky přímo v Netlify DNS, pokud tam DNS běží)
+3. Klient tě přidá jako spolupracovníka: **Settings → Users and permissions → Add user**,
+   zadá tvůj Google e-mail, role **Full** (stačí — Owner není potřeba)
+4. Jakmile máš přístup, odešli/zkontroluj sitemapu (`sitemap-index.xml`, generuje ji
+   `@astrojs/sitemap` automaticky) — viz sekce SEO, "Po launchi"
+
+Nastavit hned po spuštění webu, ne až časem — čím dřív se Google Search Console začne
+sbírat data, tím dřív jsou k dispozici a tím dřív web začne Google properly indexovat.
+
 ### Astro
 
 Žádný účet není potřeba — je to jen open-source npm balíček, ne služba s přihlašováním.
@@ -75,9 +131,12 @@ potřeboval nezávislost, tu není.
 ### Checklist při zakládání nového klientského projektu
 
 - [ ] Klient má vlastní GitHub účet/Organizaci, tebe pozval jako Collaborator
-- [ ] Klient má vlastní Netlify Team, tebe pozval jako Developer/Owner
+- [ ] Klient má vlastní Netlify Team, tebe pozval jako Developer/Owner (pokud to free plán
+      umožní — jinak rovnou nastavit GitHub Actions deploy, viz sekce Nasazení výše)
 - [ ] Doména je registrovaná na klienta, máš přístup do DNS správy
 - [ ] reCAPTCHA klíč založený pod tvým Google účtem pro konkrétní doménu
+- [ ] Google Search Console založený pod klientovým Google účtem (property Doména), tebe
+      přidal jako Uživatele s rolí Full
 - [ ] Jasně domluveno, co se stane s klíči/přístupy při ukončení spolupráce
 
 ---
@@ -522,7 +581,8 @@ export default defineConfig({
 ### Po launchi
 
 - Odeslat sitemap do Google Search Console a Bing Webmaster Tools (jednorázový krok, snadno
-  se zapomene, ale bez něj Google web objevuje pomaleji)
+  se zapomene, ale bez něj Google web objevuje pomaleji) — založení účtu a přístupu řeší
+  sekce **Účty: klient vs. programátor → Google Search Console**
 
 ---
 
@@ -548,7 +608,9 @@ export default defineConfig({
 - **Build jako gate** — Netlify build spouští `astro check`/`tsc --noEmit` jako součást
   build scriptu, takže chybný kód se nedostane do produkce, ani když se lokální kontrola vynechá
 - **Deploy previews** — i při sólo vývoji nechat Netlify generovat preview na branch/PR
-  a projít si ho, než se mergne do `main`
+  a projít si ho, než se mergne do `main` (u projektů nasazovaných přes GitHub Actions,
+  viz sekce Nasazení výše, se previews musí přidat jako samostatný krok workflow, nejsou
+  automatické jako u přímé Netlify Git integrace)
 
 ---
 

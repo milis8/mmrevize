@@ -8,6 +8,11 @@ export default defineConfig({
   site: 'https://mmrevize.cz',
   output: 'static',
   integrations: [sitemap()],
+  build: {
+    // Vloží CSS přímo do HTML místo blokujícího externího <link> – šablona
+    // cílí na malé prezenční weby, kde se to jednoznačně vyplatí (viz sekce Výkon)
+    inlineStylesheets: 'always',
+  },
   markdown: {
     // Prism zvýrazňuje přes CSS třídy, ne inline styly – na rozdíl od výchozího
     // Shiki je tak kompatibilní s naším CSP (styleDirective bez 'unsafe-inline')
@@ -40,6 +45,8 @@ export default defineConfig({
       styleDirective: {
         resources: ["'self'"], // fonty jsou self-hostované přes Astro Fonts API
       },
+      // object-src nemá vlastní zkratku v Astro CSP API, přidává se přes obecné directives
+      directives: ["object-src 'none'"],
     },
   },
 });

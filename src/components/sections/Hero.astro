@@ -13,9 +13,11 @@ import { siteConfig } from '../../lib/site-config';
       class="h-full w-full object-cover object-[65%_12%]"
       widths={[640, 1024, 1600, 1920]}
       sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
     />
     <div
-      class="absolute inset-0 bg-gradient-to-r from-brand-dark via-brand-dark/70 to-transparent"
+      class="absolute inset-0 bg-gradient-to-r from-brand-dark from-40% via-brand-dark/90 to-transparent"
       aria-hidden="true"
     >
     </div>
